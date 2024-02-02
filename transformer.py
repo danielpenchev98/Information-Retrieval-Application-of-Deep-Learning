@@ -131,7 +131,7 @@ def load_test_dataset():
     
     return test_dataset, len(sourceVocab), len(targetVocab)
 
-    
+
 import parameters
 import utils
 source_vocab, target_vocab = utils.load_word_vocabulary()
@@ -164,6 +164,45 @@ nmt = Seq2SeqTransformer(
     training_dataset.pad_idx
 )
 
+import sys
+import os
+if len(sys.argv) == 3 and sys.argv[1] == 'translate': 
+    # Translation
+    entries = os.listdir('./test/')
+    nmt = nmt.load_from_checkpoint(
+        f"./test/{entries[0]}",
+        num_encoder_layers=  parameters.NUM_ENCODER_LAYERS,
+        num_decoder_layers=parameters.NUM_DECODER_LAYERS,
+        emb_size=parameters.EMB_SIZE,
+        nhead= parameters.NHEAD,
+        src_vocab=training_dataset.source_language_vocab,
+        tgt_vocab= training_dataset.target_language_vocab,
+        dim_feedforward=parameters.FFN_HID_DIM,
+        dropout=parameters.DROPOUT_RATE,
+        batch_size=parameters.BATCH_SIZE,
+        warmup_steps=parameters.WARMUP_STEPS,
+        pad_idx= training_dataset.pad_idx
+    ).to(DEVICE)
+    
+    test_dataset,_,_ = utils.load_test_dataset(source_vocab=source_vocab, target_vocab=target_vocab)
+    
+    
+    test_dataloader = dataset.get_data_loader(test_dataset, 1, 8, shuffle=False)
+
+    nmt.eval()
+    file = open(sys.argv[2],'w')
+
+    translated_sentences = []
+    for idx, (src,_) in enumerate(test_dataloader):
+        file.write(' '.join(nmt.transformer.translateSentence(src.transpose(0,1).to(DEVICE), beam_size=3, translation_variants_limit=5))+"\n")
+        print(f"Sentence {idx} translated")
+    
+    exit(0)
+elif len(sys.argv) != 2 and sys.argv[1] != 'train':
+    print("Invalid command")
+    exit(1)
+
+# Training 
 early_stop = callbacks.EarlyStopping(
     monitor='perplexity',
     patience=parameters.max_patience,
@@ -192,39 +231,3 @@ trainer = pl.Trainer(
 )
 
 trainer.fit(nmt, train_dataloader, val_dataloader)
-
-# visualize_custom_lr_adam()
-
-
-# import sys
-# import os
-# if len(sys.argv) == 3 and sys.argv[1] == 'translate': 
-#     entries = os.listdir('./test/')
-#     nmt = nmt.load_from_checkpoint(
-#         f"./test/{entries[0]}",
-#         num_encoder_layers=  parameters.NUM_ENCODER_LAYERS,
-#         num_decoder_layers=parameters.NUM_DECODER_LAYERS,
-#         emb_size=parameters.EMB_SIZE,
-#         nhead= parameters.NHEAD,
-#         src_vocab=training_dataset.source_language_vocab,
-#         tgt_vocab= training_dataset.target_language_vocab,
-#         dim_feedforward=parameters.FFN_HID_DIM,
-#         dropout=parameters.DROPOUT_RATE,
-#         batch_size=parameters.BATCH_SIZE,
-#         warmup_steps=parameters.WARMUP_STEPS,
-#         pad_idx= training_dataset.pad_idx
-#     ).to(DEVICE)
-    
-#     print('_______')
-#     test_dataset,_,_ = utils.load_test_dataset(source_vocab=source_vocab, target_vocab=target_vocab)
-    
-    
-#     test_dataloader = dataset.get_data_loader(test_dataset, 1, 8, shuffle=False)
-
-#     nmt.eval()
-#     file = open(sys.argv[2],'w')
-
-#     translated_sentences = []
-#     for idx, (src,_) in enumerate(test_dataloader):
-#         file.write(' '.join(nmt.transformer.translateSentence(src.transpose(0,1).to(DEVICE), beam_size=3, translation_variants_limit=5))+"\n")
-#         print(f"Sentence {idx} translated")
