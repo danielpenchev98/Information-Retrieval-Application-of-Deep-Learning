@@ -1,0 +1,96 @@
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+You are using a CUDA device ('NVIDIA GeForce RTX 3090') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:613: UserWarning: Checkpoint directory /home/danielpenchev/MachineLearning/test exists and is not empty.
+  rank_zero_warn(f"Checkpoint directory {dirpath} exists and is not empty.")
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+  | Name                | Type               | Params
+-----------------------------------------------------------
+0 | transformer         | Transformer        | 3.7 M
+1 | generator           | Linear             | 5.2 M
+2 | src_tok_emb         | TokenEmbedding     | 3.5 M
+3 | tgt_tok_emb         | TokenEmbedding     | 5.2 M
+4 | positional_encoding | PositionalEncoding | 0
+-----------------------------------------------------------
+17.6 M    Trainable params
+0         Non-trainable params
+17.6 M    Total params
+70.233    Total estimated model params size (MB)
+Epoch 0:   1%|█▋                                                                                                                                                                                                                                                                                                                            | 5/956 [00:00<03:01,  5.24it/s, loss=10.2, v_num=uq1w]
+Traceback (most recent call last):
+  File "/home/danielpenchev/MachineLearning/transformer2.py", line 382, in <module>
+    trainer.fit(model, train_dataloader, val_dataloader)
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 608, in fit
+    call._call_and_handle_interrupt(
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 38, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 650, in _fit_impl
+    self._run(model, ckpt_path=self.ckpt_path)
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1112, in _run
+    results = self._run_stage()
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1191, in _run_stage
+    self._run_train()
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1214, in _run_train
+    self.fit_loop.run()
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/loops/loop.py", line 199, in run
+    self.advance(*args, **kwargs)
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/loops/fit_loop.py", line 267, in advance
+    self._outputs = self.epoch_loop.run(self._data_fetcher)
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/loops/loop.py", line 199, in run
+    self.advance(*args, **kwargs)
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/loops/epoch/training_epoch_loop.py", line 213, in advance
+    batch_output = self.batch_loop.run(kwargs)
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/loops/loop.py", line 199, in run
+    self.advance(*args, **kwargs)
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/loops/batch/training_batch_loop.py", line 88, in advance
+    outputs = self.optimizer_loop.run(optimizers, kwargs)
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/loops/loop.py", line 199, in run
+    self.advance(*args, **kwargs)
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/optimizer_loop.py", line 202, in advance
+    result = self._run_optimization(kwargs, self._optimizers[self.optim_progress.optimizer_position])
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/optimizer_loop.py", line 249, in _run_optimization
+    self._optimizer_step(optimizer, opt_idx, kwargs.get("batch_idx", 0), closure)
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/optimizer_loop.py", line 370, in _optimizer_step
+    self.trainer._call_lightning_module_hook(
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1356, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/core/module.py", line 1742, in optimizer_step
+    optimizer.step(closure=optimizer_closure)
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/core/optimizer.py", line 169, in step
+    step_output = self._strategy.optimizer_step(self._optimizer, self._optimizer_idx, closure, **kwargs)
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 234, in optimizer_step
+    return self.precision_plugin.optimizer_step(
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/plugins/precision/precision_plugin.py", line 119, in optimizer_step
+    return optimizer.step(closure=closure, **kwargs)
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/torch/optim/lr_scheduler.py", line 69, in wrapper
+    return wrapped(*args, **kwargs)
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/torch/optim/optimizer.py", line 280, in wrapper
+    out = func(*args, **kwargs)
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/torch/optim/optimizer.py", line 33, in _use_grad
+    ret = func(self, *args, **kwargs)
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/torch/optim/adam.py", line 121, in step
+    loss = closure()
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/plugins/precision/precision_plugin.py", line 105, in _wrap_closure
+    closure_result = closure()
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/optimizer_loop.py", line 149, in __call__
+    self._result = self.closure(*args, **kwargs)
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/optimizer_loop.py", line 144, in closure
+    self._backward_fn(step_output.closure_loss)
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/optimizer_loop.py", line 305, in backward_fn
+    self.trainer._call_strategy_hook("backward", loss, optimizer, opt_idx)
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1494, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 207, in backward
+    self.precision_plugin.backward(closure_loss, self.lightning_module, optimizer, optimizer_idx, *args, **kwargs)
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/plugins/precision/precision_plugin.py", line 67, in backward
+    model.backward(tensor, optimizer, optimizer_idx, *args, **kwargs)
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/pytorch_lightning/core/module.py", line 1486, in backward
+    loss.backward(*args, **kwargs)
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/torch/_tensor.py", line 487, in backward
+    torch.autograd.backward(
+  File "/home/danielpenchev/anaconda3/envs/pytorch-2.1/lib/python3.10/site-packages/torch/autograd/__init__.py", line 200, in backward
+    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+
+Epoch 0:   1%|████▋                                                                                                                                                                                                                                                                                                                        | 14/956 [00:02<02:27,  6.41it/s, loss=10.2, v_num=uq1w]

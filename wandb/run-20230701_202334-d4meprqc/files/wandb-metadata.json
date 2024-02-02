@@ -1,0 +1,119 @@
+{
+    "os": "Linux-6.2.6-76060206-generic-x86_64-with-glibc2.35",
+    "python": "3.10.11",
+    "heartbeatAt": "2023-07-01T17:23:35.277842",
+    "startedAt": "2023-07-01T17:23:34.465962",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "/home/danielpenchev/MachineLearning/transformer2.py",
+    "codePath": "transformer2.py",
+    "host": "pop-os",
+    "username": "danielpenchev",
+    "executable": "/home/danielpenchev/anaconda3/envs/pytorch-2.1/bin/python",
+    "cpu_count": 8,
+    "cpu_count_logical": 16,
+    "cpu_freq": {
+        "current": 3.1715625000000003,
+        "min": 3000.0,
+        "max": 4500.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 3.369,
+            "min": 3000.0,
+            "max": 4500.0
+        },
+        {
+            "current": 2.73,
+            "min": 3000.0,
+            "max": 4500.0
+        },
+        {
+            "current": 3.437,
+            "min": 3000.0,
+            "max": 4500.0
+        },
+        {
+            "current": 3.0,
+            "min": 3000.0,
+            "max": 4500.0
+        },
+        {
+            "current": 3.0,
+            "min": 3000.0,
+            "max": 4500.0
+        },
+        {
+            "current": 3.0,
+            "min": 3000.0,
+            "max": 4500.0
+        },
+        {
+            "current": 2.678,
+            "min": 3000.0,
+            "max": 4500.0
+        },
+        {
+            "current": 3.994,
+            "min": 3000.0,
+            "max": 4500.0
+        },
+        {
+            "current": 4.39,
+            "min": 3000.0,
+            "max": 4500.0
+        },
+        {
+            "current": 3.0,
+            "min": 3000.0,
+            "max": 4500.0
+        },
+        {
+            "current": 3.0,
+            "min": 3000.0,
+            "max": 4500.0
+        },
+        {
+            "current": 3.0,
+            "min": 3000.0,
+            "max": 4500.0
+        },
+        {
+            "current": 2.681,
+            "min": 3000.0,
+            "max": 4500.0
+        },
+        {
+            "current": 2.674,
+            "min": 3000.0,
+            "max": 4500.0
+        },
+        {
+            "current": 2.901,
+            "min": 3000.0,
+            "max": 4500.0
+        },
+        {
+            "current": 4.217,
+            "min": 3000.0,
+            "max": 4500.0
+        }
+    ],
+    "disk": {
+        "total": 38.15163040161133,
+        "used": 10.497962951660156
+    },
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "gpu_count": 1,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA GeForce RTX 3090",
+            "memory_total": 25769803776
+        }
+    ],
+    "memory": {
+        "total": 61.946495056152344
+    }
+}
